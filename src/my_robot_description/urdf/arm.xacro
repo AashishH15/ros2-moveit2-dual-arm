@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="robot_arm" params="prefix parent *origin arm_color:=blue">
+        <link name="${prefix}shoulder_link">
+            <visual>
+                <geometry>
+                    <cylinder length="0.5" radius="0.1" />
+                </geometry>
+                <origin xyz="0 0 0.25" rpy="0 0 0" />
+                <material name="${arm_color}" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="0.5" radius="0.1" />
+                </geometry>
+                <origin xyz="0 0 0.25" rpy="0 0 0" />
+            </collision>
+        </link>
+
+        <link name="${prefix}arm_link">
+            <visual>
+                <geometry>
+                    <cylinder length="0.6" radius="0.05" />
+                </geometry>
+                <origin xyz="0 0 0.3" rpy="0 0 0" />
+                <material name="grey" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="0.6" radius="0.05" />
+                </geometry>
+                <origin xyz="0 0 0.3" rpy="0 0 0" />
+            </collision>
+        </link>
+
+        <link name="${prefix}elbow_link">
+            <visual>
+                <geometry>
+                    <cylinder length="0.1" radius="0.05" />
+                </geometry>
+                <origin xyz="0 0 0.05" rpy="0 0 0" />
+                <material name="${arm_color}" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="0.1" radius="0.05" />
+                </geometry>
+                <origin xyz="0 0 0.05" rpy="0 0 0" />
+            </collision>
+        </link>
+
+        <link name="${prefix}forearm_link">
+            <visual>
+                <geometry>
+                    <cylinder length="0.5" radius="0.05" />
+                </geometry>
+                <origin xyz="0 0 0.25" rpy="0 0 0" />
+                <material name="grey" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="0.5" radius="0.05" />
+                </geometry>
+                <origin xyz="0 0 0.25" rpy="0 0 0" />
+            </collision>
+        </link>
+
+        <link name="${prefix}wrist_link">
+            <visual>
+                <geometry>
+                    <box size="0.1 0.1 0.05" />
+                </geometry>
+                <origin xyz="0 0 0.025" rpy="0 0 0" />
+                <material name="${arm_color}" />
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="0.1 0.1 0.05" />
+                </geometry>
+                <origin xyz="0 0 0.025" rpy="0 0 0" />
+            </collision>
+        </link>
+
+        <link name="${prefix}hand_link">
+            <visual>
+                <geometry>
+                    <box size="0.1 0.1 0.02" />
+                </geometry>
+                <origin xyz="0 0 0.01" rpy="0 0 0" />
+                <material name="grey" />
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="0.1 0.1 0.02" />
+                </geometry>
+                <origin xyz="0 0 0.01" rpy="0 0 0" />
+            </collision>
+        </link>
+
+        <link name="${prefix}tool_link" />
+
+        <joint name="${prefix}joint1" type="revolute">
+            <parent link="${parent}" />
+            <child link="${prefix}shoulder_link" />
+            <xacro:insert_block name="origin" />
+            <axis xyz="0 0 1" />
+            <limit effort="1000.0" velocity="1.0" lower="-3.14" upper="3.14" />
+        </joint>
+
+        <joint name="${prefix}joint2" type="revolute">
+            <parent link="${prefix}shoulder_link" />
+            <child link="${prefix}arm_link" />
+            <origin xyz="0 0 0.5" rpy="0 0 0" />
+            <axis xyz="0 1 0" />
+            <limit effort="1000.0" velocity="1.0" lower="0" upper="2.5" />
+        </joint>
+
+        <joint name="${prefix}joint3" type="revolute">
+            <parent link="${prefix}arm_link" />
+            <child link="${prefix}elbow_link" />
+            <origin xyz="0 0 0.6" rpy="0 0 0" />
+            <axis xyz="0 1 0" />
+            <limit effort="1000.0" velocity="1.0" lower="0" upper="2.5" />
+        </joint>
+
+        <joint name="${prefix}joint4" type="revolute">
+            <parent link="${prefix}elbow_link" />
+            <child link="${prefix}forearm_link" />
+            <origin xyz="0 0 0.1" rpy="0 0 0" />
+            <axis xyz="0 0 1" />
+            <limit effort="1000.0" velocity="1.0" lower="-3.14" upper="3.14" />
+        </joint>
+
+        <joint name="${prefix}joint5" type="revolute">
+            <parent link="${prefix}forearm_link" />
+            <child link="${prefix}wrist_link" />
+            <origin xyz="0 0 0.5" rpy="0 0 0" />
+            <axis xyz="0 1 0" />
+            <limit effort="1000.0" velocity="1.0" lower="-1.57" upper="1.57" />
+        </joint>
+
+        <joint name="${prefix}joint6" type="revolute">
+            <parent link="${prefix}wrist_link" />
+            <child link="${prefix}hand_link" />
+            <origin xyz="0 0 0.05" rpy="0 0 0" />
+            <axis xyz="0 0 1" />
+            <limit effort="1000.0" velocity="1.0" lower="-3.14" upper="3.14" />
+        </joint>
+
+        <joint name="${prefix}hand_tool_joint" type="fixed">
+            <parent link="${prefix}hand_link" />
+            <child link="${prefix}tool_link" />
+            <origin xyz="0 0 0.02" rpy="0 0 0" />
+        </joint>
+    </xacro:macro>
+
+</robot>
