@@ -4,9 +4,7 @@ ROS 2 workspace with a custom dual-arm robot URDF, MoveIt 2 planning groups, and
 
 ## Demo
 
-[![Dual-arm MoveIt demo — click to play](demo/thumbnail.jpg)](https://github.com/AashishH15/ros2-moveit2-dual-arm/blob/main/demo/dual-arm-moveit.mp4)
-
-*Click the image above to open the full video.*
+https://github.com/user-attachments/assets/67e10de0-c4ac-4d91-926d-73ddd0d7a7bf
 
 Also on [portfolio](https://aashishharishchandre.netlify.app/).
 
