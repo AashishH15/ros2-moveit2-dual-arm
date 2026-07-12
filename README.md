@@ -67,6 +67,20 @@ ros2 launch my_robot_movit_config demo_jsp.launch.py
 
 In RViz, use the **MotionPlanning** panel to plan and execute paths for `left_arm`, `right_arm`, or `dual_arm`.
 
+### Plan animator (visualization-only mode)
+
+`demo_jsp.launch.py` starts `plan_animator.py`, which subscribes to `/move_group/display_planned_path` and republishes joint states for smooth RViz replay without ros2_control hardware simulation. Use this when you only want to visualize planned trajectories.
+
+## Troubleshooting
+
+| Symptom | Likely cause | Fix |
+|---------|--------------|-----|
+| `package 'my_robot_movit_config' not found` | Workspace not sourced | Run `source install/setup.bash` after `colcon build` |
+| MoveIt planning fails instantly | Wrong planning group or start state in collision | Select `left_arm`, `right_arm`, or `dual_arm`; reset robot pose in RViz |
+| Robot doesn't move on execute | Controllers not loaded | Use `demo.launch.py` (full ros2_control) instead of `demo_jsp.launch.py` |
+| Jerky RViz animation | Animator timer vs trajectory density | `plan_animator.py` publishes at 20 Hz; re-plan with denser waypoints if needed |
+| `rosdep install` missing keys | Unlisted deps | Install MoveIt 2 + ros2_control packages for your ROS distro manually |
+
 ## Pipeline (high level)
 
 1. Spawn dual-arm robot + obstacle in RViz via `robot_state_publisher`
