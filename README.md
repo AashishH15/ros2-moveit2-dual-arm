@@ -29,10 +29,13 @@ You need a local ROS 2 + MoveIt 2 install to run this.
 
 ## Requirements
 
-- [ROS 2](https://docs.ros.org/) Jazzy or Humble (tested on Jazzy)
-- MoveIt 2 (`ros-jazzy-moveit` or equivalent)
-- ros2_control + controllers (`ros-jazzy-ros2-control`, `ros-jazzy-joint-trajectory-controller`, `ros-jazzy-joint-state-broadcaster`)
-- `colcon` build tools
+| Component | Jazzy (tested) | Humble |
+|-----------|----------------|--------|
+| ROS 2 | `ros-jazzy-desktop` | `ros-humble-desktop` |
+| MoveIt 2 | `ros-jazzy-moveit` | `ros-humble-moveit` |
+| ros2_control | `ros-jazzy-ros2-control` | `ros-humble-ros2-control` |
+| Controllers | `ros-jazzy-joint-trajectory-controller`, `ros-jazzy-joint-state-broadcaster` | Humble equivalents |
+| Build | `python3-colcon-common-extensions` | same |
 
 ## Run
 
